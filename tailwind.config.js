@@ -1,14 +1,16 @@
 /** @type {import('tailwindcss').Config} */
 
+const defaultTheme = require("tailwindcss/defaultTheme");
+
 const colors = {
   "color-mexican-red": "#98243C",
   "color-red-violet": "#9D258E",
   "color-geraldine": "#F6947B",
   "color-cerise": "#DB318A",
   "color-gold": "#A97D32",
-  "transparent": "transparent",
-  "black": "#000000",
-  "white": "#ffffff",
+  transparent: "transparent",
+  black: "#000000",
+  white: "#ffffff",
   "text-custom-gray": "#70757a",
   "custom-gray": "#edf2f6",
   "custom-light-gray": "#fafafa",
@@ -16,7 +18,7 @@ const colors = {
   "custom-green": "rgb(0, 183, 18)",
   "custom-blue": "rgb(2, 136, 209)",
   "custom-dark": "rgb(108, 117, 125)",
-  "red": "#f44336",
+  red: "#f44336",
   "red-50": "#ffebee",
   "red-100": "#ffcdd2",
   "red-200": "#ef9a9a",
@@ -31,7 +33,7 @@ const colors = {
   "red-200-accent": "#ff5252",
   "red-400-accent": "#ff1744",
   "red-700-accent": "#d50000",
-  "pink": "#e91e63",
+  pink: "#e91e63",
   "pink-50": "#fce4ec",
   "pink-100": "#f8bbd0",
   "pink-200": "#f48fb1",
@@ -564,11 +566,18 @@ const colors = {
   "blue-grey-900-contrast": "white",
 };
 
+// handle colors with opacity
+const withOpacity = (variableName) => {
+  return ({ opacityValue }) => {
+    if (opacityValue !== undefined)
+      return `rgba(var(${variableName}), ${opacityValue})`;
+
+    return `rgb(var(${variableName}))`;
+  };
+};
+
 export default {
-  content: [
-    "./index.html",
-    "./src/**/*.{js,ts,jsx,tsx}",
-  ],
+  content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
   theme: {
     colors: {
       ...colors,
@@ -585,7 +594,69 @@ export default {
       "color-blue": "rgb(2, 136, 209)",
       "color-dark": "rgb(108, 117, 125)",
     },
-    extend: {},
+    extend: {
+      fontFamily: {
+        sans: ["Rubik", ...defaultTheme.fontFamily.sans],
+      },
+      textColor: {
+        skin: {
+          base: withOpacity("--color-text-base"),
+          muted: withOpacity("--color-text-muted"),
+          inverted: withOpacity("--color-text-inverted"),
+        },
+      },
+      borderColor: {
+        skin: {
+          base: withOpacity("--color-border-base"),
+          muted: withOpacity("--color-border-muted"),
+          inverted: withOpacity("--color-border-inverted"),
+        },
+      },
+      scrollbar: {
+        skin: {
+          base: withOpacity("--color-border-base"),
+          muted: withOpacity("--color-border-muted"),
+          inverted: withOpacity("--color-border-inverted"),
+        },
+      },
+      backgroundColor: {
+        skin: {
+          fill: withOpacity("--color-fill"),
+          "fill-base": withOpacity("--color-fill-base"),
+          "fill-muted": withOpacity("--color-fill-muted"),
+          "fill-inverted": withOpacity("--color-fill-inverted"),
+          "button-muted": withOpacity("--color-button-muted"),
+          "button-accent": withOpacity("--color-button-accent"),
+          "button-accent-hover": withOpacity("--color-button-accent-hover"),
+        },
+      },
+      gradientColorStops: {
+        skin: {
+          hue: withOpacity("--color-fill-inverted"),
+        },
+      },
+      keyframes: {
+        sidebar: {
+          from: { width: "80px" },
+          to: { width: "300px" },
+        },
+      },
+      animation: {
+        sidebar: "4s ease-in-out forwards",
+      },
+      backgroundImage: {
+        "custom-gradient":
+          "linear-gradient(159deg,rgba(37,37,50, 0.98) 0%,rgba(35,35,45, 0.98) 100%)",
+        "custom-gradient-light":
+          "linear-gradient(159deg,#2d2d3a 0%,#2b2b35 100%)",
+      },
+    },
   },
-  plugins: [],
-}
+  plugins: [
+    require("tailwind-scrollbar")({ nocompatible: true }),
+    require("prettier-plugin-tailwindcss"),
+  ],
+  variants: {
+    scrollbar: ["rounded"],
+  },
+};

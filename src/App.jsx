@@ -1,23 +1,28 @@
 import React from "react";
 import { useSelector } from "react-redux";
-import { createBrowserRouter, redirect } from "react-router-dom";
+import { SnackbarProvider } from "notistack";
+import {
+  createBrowserRouter,
+  redirect,
+  RouterProvider,
+} from "react-router-dom";
 import { Layout } from "./components";
-import { getThemeColor } from "./helpers/constants";
 
 import { Circles } from "react-loading-icons";
 
 import Signin from "./pages/auth/signin";
+import Dashboard from "./pages/dashboard";
+import Users from "./pages/users";
 import CalibrationRecord from "./pages/calibrationRecords";
 import CalibrationSchedule from "./pages/calibrationSchedules";
 import Certificate from "./pages/certificates";
 import Customer from "./pages/customers";
-import Dashboard from "./pages/dashboard";
 import Instrument from "./pages/instruments";
 import Invoice from "./pages/invoices";
 import Quotation from "./pages/quotations";
-import Users from "./pages/users";
 
 import ErrorPage from "./pages/errors";
+import { getThemeColor } from "./helpers/constants";
 import SingleUser from "./pages/users/singleUser";
 import { SnackbarProvider } from 'some-snackbar-library';
 
