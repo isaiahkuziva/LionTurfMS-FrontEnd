@@ -30,7 +30,7 @@ const Signin = () => {
 
   const navToDashboard = () => navigate("/dashboard");
 
-  // retrieve user data on page refresh
+
   useEffect(() => {
     if (!currentUser) {
       dispatch(showLoading());
@@ -109,7 +109,7 @@ const Signin = () => {
             <div>
               <h1 className="my-2 text-3xl">Welcome To Dashboard System</h1>
               <p className="text-md">
-                LionTurf Instrumentation & Calibration Pvt Ltd 
+                LionTurf Instrumentation & Calibration Pvt Ltd
                 149 The Chase Rd
                 Welcome To Your House Of Calibrations.
               </p>
@@ -139,9 +139,8 @@ const Signin = () => {
 
         {/* =========================== right column ================================ */}
         <div
-          className={`w-[40%] px-10 py-12 max-[900px]:w-full ${
-            currentTheme === THEMES.dark && "bg-custom-gradient-light"
-          }`}
+          className={`w-[40%] px-10 py-12 max-[900px]:w-full ${currentTheme === THEMES.dark && "bg-custom-gradient-light"
+            }`}
         >
           <h1 className="mb-2 mt-3 text-3xl font-bold">Sign in</h1>
           <p className="text-skin-muted">
@@ -165,10 +164,10 @@ const Signin = () => {
             />
 
             <CustomButton name="Sign in" type="submit" />
-            <button type="button" 
-            className="-m-2.5 inline-flex items-center justify-center rounded-md p-2.5 text-gray-700">
+            <button type="button"
+              className="-m-2.5 inline-flex items-center justify-center rounded-md p-2.5 text-gray-700">
               Log In
-              </button>
+            </button>
 
             <p className="mt-3 text-skin-muted">
               Forgot password?{" "}

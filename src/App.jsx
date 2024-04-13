@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import { SnackbarProvider } from "notistack";
 import {
@@ -7,7 +7,7 @@ import {
   RouterProvider,
 } from "react-router-dom";
 import { Layout } from "./components";
-
+import { BrowserRouter as Router } from 'react-router-dom';
 import { Circles } from "react-loading-icons";
 
 import Signin from "./pages/auth/signin";
@@ -24,27 +24,37 @@ import Quotation from "./pages/quotations";
 import ErrorPage from "./pages/errors";
 import { getThemeColor } from "./helpers/constants";
 import SingleUser from "./pages/users/singleUser";
-import { SnackbarProvider } from 'some-snackbar-library';
 
-const LoadingScreen = (props) => {
+const LoadingScreen = () => {
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setLoading(false);
+    }, 3000);
+
+    return () => clearTimeout(timer);
+  }, []);
+
   return (
-    <div
-      className={`absolute inset-0 z-[1005] flex flex-col items-center justify-center bg-black bg-opacity-60`}
-    >
-      <Circles fill={getThemeColor(props.theme)} height="3rem" speed={2} />
+    <div>
+      {loading ? (
+        <div className={`absolute inset-0 z-[1005] flex flex-col items-center justify-center bg-black bg-opacity-60`}>
+          <Circles height="3rem" speed={2} />
+        </div>
+      ) : (
+        <Signin />
+      )}
     </div>
   );
 };
 
-// I'm just avoiding having '/' page route
-const homeLoader = async () => {
-  return redirect("/auth/signin");
-};
+
 
 const router = createBrowserRouter([
   {
     path: "/",
-    loader: homeLoader,
+    element: <Signin />,
     errorElement: <ErrorPage />,
   },
   {
@@ -106,16 +116,19 @@ const App = () => {
   const loading = useSelector((state) => state.loading.value);
 
   return (
-  //<div>
-  //<h1 className="text-3xl ">Test</h1>
-  //</div>
-  <SnackbarProvider maxSnack={3}>
-    <div className={` ${theme === THEMES.dark && `theme-dark`}`}>
-       <RouterProvider router={router} />
-        {loading && <LoadingScreen theme={theme} />}
-    </div>
-  </SnackbarProvider>
+    <Router>
+      <SnackbarProvider maxSnack={3}>
+
+        {/* <RouterProvider router={router} /> */}
+        {<LoadingScreen theme={theme} />}
+      </SnackbarProvider>
+    </Router>
   );
 };
 
 export default App;
+
+// <div>
+//     <h1 className="text-3xl ">Test</h1>
+//   </div>
+
