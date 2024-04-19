@@ -164,10 +164,6 @@ const Signin = () => {
             />
 
             <CustomButton name="Sign in" type="submit" />
-            <button type="button"
-              className="-m-2.5 inline-flex items-center justify-center rounded-md p-2.5 text-gray-700">
-              Log In
-            </button>
 
             <p className="mt-3 text-skin-muted">
               Forgot password?{" "}

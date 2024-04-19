@@ -49,6 +49,9 @@ const LoadingScreen = () => {
   );
 };
 
+const homeLoader = async () => {
+  return redirect("/auth/signin");
+};
 
 
 const router = createBrowserRouter([
@@ -127,8 +130,4 @@ const App = () => {
 };
 
 export default App;
-
-// <div>
-//     <h1 className="text-3xl ">Test</h1>
-//   </div>
 

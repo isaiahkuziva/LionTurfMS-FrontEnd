@@ -32,7 +32,7 @@ export const getThemeColor = (currentTheme) => {
 //export const API_URL = import.meta.env.VITE_API_URL;
 export const API_URL = "http://localhost:5000/api/";
 
-export const COMPANY_NAME = "COMPANY NAME";
+export const COMPANY_NAME = import.meta.env.VITE_COMPANY_NAME || "COMPANY NAME";
 
 export const API = axios.create({
   baseURL: API_URL,
